@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google OAuth2 Login</title>
+</head>
+<body>
+    <h1>Google OAuth2 Login</h1>
+    <button id="loginButton">Login with Google</button>
+    <div id="userInfo" style="display: none;">
+        <h2>User Info</h2>
+        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        <p><strong>Name:</strong> <span id="userName"></span></p>
+    </div>
+    <button id="protectedButton">Access Protected Route</button>
+    <div id="protectedInfo" style="display: none;">
+        <h2>Protected Info</h2>
+        <p><strong>Email:</strong> <span id="protectedEmail"></span></p>
+        <p><strong>Name:</strong> <span id="protectedName"></span></p>
+    </div>
+
+    <script>
+        let accessToken = null;
+
+        // Обработка нажатия на кнопку "Login with Google"
+        document.getElementById("loginButton").addEventListener("click", async () => {
+            // Перенаправляем пользователя на бэкенд для авторизации через Google
+            window.location.href = "http://localhost:8000/login";
+        });
+
+        // Проверка, есть ли токен в URL (после авторизации)
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("access_token");
+        const email = urlParams.get("email");
+        const name = urlParams.get("name");
+
+        if (token) {
+            accessToken = token;  // Сохраняем токен
+            document.getElementById("userEmail").textContent = email;
+            document.getElementById("userName").textContent = name;
+            document.getElementById("userInfo").style.display = "block";
+            document.getElementById("protectedButton").style.display = "block";
+        }
+
+        // Обработка нажатия на кнопку "Access Protected Route"
+        document.getElementById("protectedButton").addEventListener("click", async () => {
+            if (!accessToken) {
+                window.location.href = "http://localhost:8000/login";
+                return;
+            }
+
+            // Запрос к защищенному маршруту
+            fetch("http://localhost:8000/protected", {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("protectedEmail").textContent = data.email;
+                    document.getElementById("protectedName").textContent = data.name;
+                    document.getElementById("protectedInfo").style.display = "block";
+                })
+                .catch(error => console.error("Error fetching protected info:", error));
+        });
+    </script>
+</body>
+</html>

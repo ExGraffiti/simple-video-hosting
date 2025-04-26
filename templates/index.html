@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Analog</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Simple video hosting</h1>
+        <button id="loginButton">Войти через Google</button>
+        <button id="logoutButton" style="display:none;">Выйти</button>
+    </header>
+
+    <main>
+        <section id="videoListSection">
+            <h2>Доступные видео</h2>
+            <div id="videoList" class="video-grid"></div>
+        </section>
+
+        <section id="uploadSection" style="display:none;">
+            <h2>Загрузить видео</h2>
+            <div>
+                <label for="videoFile">Видео (.mp4):</label>
+                <input type="file" id="videoFile" accept="video/mp4">
+            </div>
+            <div>
+                <label for="previewFile">Превью (.png):</label>
+                <input type="file" id="previewFile" accept="image/png">
+            </div>
+            <button id="uploadButton">Загрузить</button>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', path='script.js') }}"></script>
+</body>
+</html>
