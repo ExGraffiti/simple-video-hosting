@@ -1,0 +1,15 @@
+access_key=xxx
+secret_key=xxx
+endpoint_url=xxx
+bucket_name=xxx
+
+DB_HOST=xxx
+DB_PORT=xxx
+DB_USER=xxx
+DB_PASSWORD=xxx
+DB_DATABASE=xxx
+
+
+CLIENT_ID = "xxx"
+CLIENT_SECRET = "xxx"
+REDIRECT_URI = "http://localhost:8000/auth/callback"

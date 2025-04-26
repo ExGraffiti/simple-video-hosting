@@ -1,0 +1,17 @@
+# Основные зависимости
+fastapi==0.109.1
+uvicorn==0.27.0
+python-dotenv==1.0.1
+python-multipart==0.0.6
+
+# Работа с S3
+aiobotocore==2.12.0
+botocore==1.31.60  # явно фиксируем совместимую версию
+
+# Базы данных
+mysql-connector-python==8.1.0
+
+# OAuth и аутентификация
+google-auth==2.26.1
+google-auth-oauthlib==1.2.0
+requests==2.31.0
